@@ -8,7 +8,7 @@ import (
 
 	"google.golang.org/grpc"
 
-	pbx "github.com/gerry-sabar/go-hello/helloworld"
+	pbx "github.com/gerry-sabar/go-hello/proto"
 )
 
 var port = 50051
@@ -18,7 +18,7 @@ type server struct {
 }
 
 func (s *server) SayHello(ctx context.Context, in *pbx.ChatRequest) (*pbx.ChatReply, error) {
-	log.Printf("Received: %v", in.GetName())
+	log.Printf("Received: %v", in.GetMessage())
 	return &pbx.ChatReply{Message: "Hello " + in.GetMessage()}, nil
 }
 

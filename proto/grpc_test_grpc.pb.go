@@ -35,7 +35,7 @@ func NewChatClient(cc grpc.ClientConnInterface) ChatClient {
 
 func (c *chatClient) SendChat(ctx context.Context, in *ChatRequest, opts ...grpc.CallOption) (*ChatReply, error) {
 	out := new(ChatReply)
-	err := c.cc.Invoke(ctx, "/protoTest.Chat/sendChat", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/protoTest.Chat/SendChat", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -80,7 +80,7 @@ func _Chat_SendChat_Handler(srv interface{}, ctx context.Context, dec func(inter
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/protoTest.Chat/sendChat",
+		FullMethod: "/protoTest.Chat/SendChat",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ChatServer).SendChat(ctx, req.(*ChatRequest))
@@ -96,7 +96,7 @@ var Chat_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*ChatServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "sendChat",
+			MethodName: "SendChat",
 			Handler:    _Chat_SendChat_Handler,
 		},
 	},

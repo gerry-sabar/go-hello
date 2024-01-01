@@ -5,7 +5,7 @@ option go_package = "github.com/gerry-sabar/go-hello";
 package protoTest;
 
 service Chat {
-    rpc sendChat (ChatRequest) returns (ChatReply) {}
+    rpc SendChat (ChatRequest) returns (ChatReply) {}
 }
 
 message ChatRequest {
