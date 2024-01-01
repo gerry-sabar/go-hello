@@ -28,7 +28,7 @@ import (
 
 	"google.golang.org/grpc"
 	// pb "google.golang.org/grpc/examples/helloworld/helloworld"
-	pb "github.com/gerry-sabar/go-test/helloworld/helloworld"
+	pbx "github.com/gerry-sabar/go-hello/helloworld"
 )
 
 var (
@@ -37,23 +37,24 @@ var (
 
 // server is used to implement helloworld.GreeterServer.
 type server struct {
-	pb.UnimplementedGreeterServer
+	pbx.UnimplementedGreeterServer
 }
 
 // SayHello implements helloworld.GreeterServer
-func (s *server) SayHello(ctx context.Context, in *pb.HelloRequest) (*pb.HelloReply, error) {
+func (s *server) SayHello(ctx context.Context, in *pbx.HelloRequest) (*pbx.HelloReply, error) {
 	log.Printf("Received: %v", in.GetName())
-	return &pb.HelloReply{Message: "Hello " + in.GetName()}, nil
+	return &pbx.HelloReply{Message: "Hello " + in.GetName()}, nil
 }
 
 func main() {
+	fmt.Printf("server is running... \n")
 	flag.Parse()
 	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", *port))
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
 	s := grpc.NewServer()
-	pb.RegisterGreeterServer(s, &server{})
+	pbx.RegisterGreeterServer(s, &server{})
 	log.Printf("server listening at %v", lis.Addr())
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)
